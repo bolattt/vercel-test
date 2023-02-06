@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { useState } from "react";
 
+const URL = process.env.REACT_APP_API_URL + "/test";
+console.log(URL);
 function App() {
+  const [result, setResult] = useState("");
+
+  function fetchApi() {
+    fetch(URL)
+      .then((res) => res.json())
+      .then((data) => setResult(data.body));
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={fetchApi}>Fetch API</button>
+      <p> Result : {result} </p>
     </div>
   );
 }
